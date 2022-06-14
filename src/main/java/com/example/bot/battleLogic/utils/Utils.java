@@ -28,9 +28,9 @@ public class Utils {
             matrix.append(i);
             for (int j = 0; j < 10; j++) {
                 if (field[j][i] == 0) {
-                    matrix.append("| - ");
+                    matrix.append("| ? ");
                 } else if (field[j][i] == 1) {
-                    matrix.append("| - ");
+                    matrix.append("| ? ");
                 } else if (field[j][i] == 6) {
                     matrix.append("| 6 ");
                 } else if (field[j][i] == 3) {

@@ -4,7 +4,6 @@ package com.example.bot.Controller;
 import com.example.bot.battleLogic.battleship.Battle;
 import com.example.bot.battleLogic.utils.Utils;
 import com.example.bot.mainview.Storage;
-import com.example.bot.model.Greeting;
 import com.example.bot.model.Ship;
 import com.example.bot.model.User;
 import org.springframework.stereotype.Controller;
@@ -88,11 +87,6 @@ public class WebController {
     }
 
 
-    @RequestMapping(value = "/greeting", method = RequestMethod.GET)
-    public String greetingForm(Model model) {
-        model.addAttribute("greeting", new Greeting());
-        return "greeting";
-    }
 
     @RequestMapping(value = "/locOneField", method = RequestMethod.GET)
     public String chooseLocForFirsPlay(Model model) {
@@ -121,7 +115,7 @@ public class WebController {
         String matrix = utils.arrayToStr(battle.getBattlefield1()).toString();
         model.addAttribute("countships", user1.getCountShips());
         model.addAttribute("matrix", matrix);
-        return "redirect:/loceOneField";
+        return "redirect:/locOneField";
     }
 
     @RequestMapping(value = "/locSecField", method = RequestMethod.POST)
@@ -138,11 +132,6 @@ public class WebController {
 //            return "redirect:/asksecond";
     }
 
-    @RequestMapping(value = "/greeting", method = RequestMethod.POST)
-    public String greetingSubmit(@ModelAttribute Greeting greeting, Model model) {
-        model.addAttribute("greeting", greeting);
-        return "result";
-    }
 
     @RequestMapping(value = "/shoo1", method = RequestMethod.GET)
     public String shoo1(Model model) {
@@ -152,14 +141,34 @@ public class WebController {
         model.addAttribute("YourField2", matrix);
         return "shoot1";
     }
+
     @RequestMapping(value = "/shoo1", method = RequestMethod.POST)
-    public String shoo1Post(Model model,  @RequestParam("OX") String x, @RequestParam("OY") String y) {
+    public String shoo1Post(Model model, @RequestParam("OX") String x, @RequestParam("OY") String y) {
         battle.makeShoot(Integer.parseInt(x), Integer.parseInt(y), battle.getBattlefield2(), user1);
         String FirstArrayIncognito = utils.incognitoArray(battle.getBattlefield2()).toString();
         model.addAttribute("fieldFirst", FirstArrayIncognito);
         String matrix = utils.arrayToStr(battle.getBattlefield1()).toString();
         model.addAttribute("YourField2", matrix);
-        return "shoot1";
+        return "redirect:/shoo1";
+    }
+
+    @RequestMapping(value = "/shoo2", method = RequestMethod.GET)
+    public String shoo2Get(Model model, @RequestParam("OX") String x, @RequestParam("OY") String y) {
+        String FirstArrayIncognito = utils.incognitoArray(battle.getBattlefield1()).toString();
+        model.addAttribute("fieldFirst", FirstArrayIncognito);
+        String matrix = utils.arrayToStr(battle.getBattlefield2()).toString();
+        model.addAttribute("YourField2", matrix);
+        return "shoot2";
+    }
+
+    @RequestMapping(value = "/shoo2", method = RequestMethod.POST)
+    public String shoo2Post(Model model, @RequestParam("OX") String x, @RequestParam("OY") String y) {
+        battle.makeShoot(Integer.parseInt(x), Integer.parseInt(y), battle.getBattlefield1(), user1);
+        String FirstArrayIncognito = utils.incognitoArray(battle.getBattlefield1()).toString();
+        model.addAttribute("fieldFirst", FirstArrayIncognito);
+        String matrix = utils.arrayToStr(battle.getBattlefield2()).toString();
+        model.addAttribute("YourField2", matrix);
+        return "redirect:/shoo2";
     }
 
 

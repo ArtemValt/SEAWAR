@@ -57,6 +57,7 @@ public class MainView extends VerticalLayout {
 
         grid = new Grid<>();
         grid.setItems(storage.getMessages());
+
         grid.addColumn(new ComponentRenderer<>(message -> new Html(renderRow(message))))
                 .setAutoWidth(true);
 
@@ -100,10 +101,15 @@ public class MainView extends VerticalLayout {
         } else if (message.getMessage().equals("готово")) {
             ready++;
             if (ready == 2)
-                return Processor.process(String.format("_Ссылка для первого и второго игрока **%s** !_ \n", "http://localhost:8080/asksecond \n http://localhost:8080/asksecond"));
-            return Processor.process(String.format("Bot say", "оджидание второго игрока"));
+                return Processor.process(String.format("_Ссылка для первого и второго игрока **%s** !_ \n", "http://localhost:8080/shoo1 \n http://localhost:8080/shoo2"));
+            return Processor.process(String.format("Bot say : оджидание второго игрока ", "оджидание второго игрока"));
         } else
             return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
+    }
+
+    private String botSay(Storage.ChatMan message) {
+        int a = 0;
+        return "";
     }
 
 

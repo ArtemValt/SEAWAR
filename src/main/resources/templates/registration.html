@@ -39,7 +39,7 @@
 <body>
 <h2>Регистрация</h2>
 
-<form action="#" th:action="@{/registration}" th:object="${userForm}" method="post">
+<form action="#" th:action="@{/registration}" th:object="${userForm}" method="C">
     <p>username: <input type="text" placeholder="Username" th:field="*{username}"/></p>
     <p>password: <input type="text" placeholder="password" th:field="*{password}"/></p>
     <p>Confirm your password": <input type="text" placeholder="Confirm your password" th:field="*{passwordConfirm}"/></p>
