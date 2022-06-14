@@ -1,8 +1,8 @@
-package com.example.battleLogic.battleship;
+package com.example.bot.battleLogic.battleship;
 
 
-import com.example.battleLogic.user.User;
-import com.example.battleLogic.battleship.Ships.Ship;
+import com.example.bot.model.User;
+import com.example.bot.model.Ship;
 import lombok.Getter;
 import lombok.Setter;
 

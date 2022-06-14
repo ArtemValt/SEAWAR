@@ -1,8 +1,7 @@
-package com.example;
+package com.example.bot.mainview;
 
-import com.example.Storage;
-import com.example.battleLogic.battleship.Battle;
-import com.example.battleLogic.utils.Utils;
+import com.example.bot.battleLogic.battleship.Battle;
+import com.example.bot.battleLogic.utils.Utils;
 import com.github.rjeschke.txtmark.Processor;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
@@ -15,19 +14,19 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 
-@Route("/1")
-public class TestApp extends VerticalLayout {
+@Route("")
+public class MainView extends VerticalLayout {
     Battle battle = new Battle();
     Utils utils = new Utils();
     private final Storage storage;
     private Registration registration;
 
-    private Grid<Storage.User> grid;
+    private Grid<Storage.ChatMan> grid;
     private VerticalLayout chat;
     private VerticalLayout login;
     private String user = "";
 
-    public TestApp(Storage storage) {
+    public MainView(Storage storage) {
         this.storage = storage;
         buildLogin();
         buildChat();
@@ -45,6 +44,7 @@ public class TestApp extends VerticalLayout {
                             chat.setVisible(true);
                             user = field.getValue();
                             storage.addRecordJoined(user);
+
                         });
                         addClickShortcut(Key.ENTER);
                     }}
@@ -93,12 +93,15 @@ public class TestApp extends VerticalLayout {
         }
     }
 
-    private String renderRow(Storage.User message) {
+    private String renderRow(Storage.ChatMan message) {
         if (message.getName().isEmpty()) {
             return Processor.process(String.format("_User **%s** is just joined the chat!_", message.getMessage()));
-        } else if (message.getMessage().equals("1"))
-            return Processor.process(String.format("**%s**: %s", message.getName(), utils.arrayToStr(battle.getBattlefield1())));
-        else {
+        } else if (storage.count == 1) {
+            return Processor.process(String.format("_Ссылка для первого игрока **%s** !_", "http://localhost:8080/askfirst"));
+        } else if (storage.count == 2) {
+            return Processor.process(String.format("_Ссылка для второго игрока **%s** !_", "http://localhost:8080/asksecond"));
+
+        } else {
             return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
 
         }

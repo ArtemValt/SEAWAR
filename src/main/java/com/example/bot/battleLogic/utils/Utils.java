@@ -1,4 +1,4 @@
-package com.example.battleLogic.utils;
+package com.example.bot.battleLogic.utils;
 
 public class Utils {
     public StringBuilder arrayToStr(int[][] field) {

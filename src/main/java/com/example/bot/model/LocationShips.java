@@ -1,4 +1,4 @@
-package com.example.battleLogic.battleship.Ships;
+package com.example.bot.model;
 
 public class LocationShips {
     private static int countFourShip =1;

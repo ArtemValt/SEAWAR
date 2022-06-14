@@ -1,4 +1,4 @@
-package com.example.bot;
+package com.example.bot.model;
 
 import lombok.Getter;
 import lombok.Setter;

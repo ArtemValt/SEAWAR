@@ -1,7 +1,8 @@
-package com.example.battleLogic.user;
+package com.example.bot.model;
 
 import lombok.Getter;
 import lombok.Setter;
+
 
 public class User {
     @Getter
@@ -24,11 +25,5 @@ public class User {
     public User() {
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+
 }
