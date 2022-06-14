@@ -1,7 +1,5 @@
 package com.example.bot.mainview;
 
-import com.example.bot.battleLogic.battleship.Battle;
-import com.example.bot.battleLogic.utils.Utils;
 import com.github.rjeschke.txtmark.Processor;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
@@ -16,8 +14,7 @@ import com.vaadin.flow.shared.Registration;
 
 @Route("")
 public class MainView extends VerticalLayout {
-    Battle battle = new Battle();
-    Utils utils = new Utils();
+    int ready = 0;
     private final Storage storage;
     private Registration registration;
 
@@ -95,18 +92,20 @@ public class MainView extends VerticalLayout {
 
     private String renderRow(Storage.ChatMan message) {
         if (message.getName().isEmpty()) {
-            return Processor.process(String.format("_User **%s** is just joined the chat!_", message.getMessage()));
-        } else if (storage.count == 1) {
-            return Processor.process(String.format("_Ссылка для первого игрока **%s** !_", "http://localhost:8080/askfirst"));
-        } else if (storage.count == 2) {
-            return Processor.process(String.format("_Ссылка для второго игрока **%s** !_", "http://localhost:8080/asksecond"));
-
-        } else {
+            if (storage.count == 1)
+                return Processor.process(String.format("_Ссылка для первого игрока **%s** !_", "http://localhost:8080/locOneField"));
+            else if (storage.count == 2)
+                return Processor.process(String.format("_Ссылка для второго игрока **%s** !_", "http://localhost:8080/locSecField"));
+            return Processor.process(String.format("_User **%s** подключился к просмотру игры_", message.getMessage()));
+        } else if (message.getMessage().equals("готово")) {
+            ready++;
+            if (ready == 2)
+                return Processor.process(String.format("_Ссылка для первого и второго игрока **%s** !_ \n", "http://localhost:8080/asksecond \n http://localhost:8080/asksecond"));
+            return Processor.process(String.format("Bot say", "оджидание второго игрока"));
+        } else
             return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
-
-        }
-
     }
+
 
     @Override
     protected void onAttach(AttachEvent attachEvent) {

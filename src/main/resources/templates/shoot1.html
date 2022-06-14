@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>Совершите ваш ход   </h1>
+<form action="/shoot1" method="get">
+    <label for="OY">OY</label>
+    <input type="text" id="OY" name="OY"><br><br>
+    <label for="OX">OX:</label>
+    <input type="text" id="OX" name="OX"><br><br>
+    <input type="submit" value="Submit">
+</form>
+<h2 th:text="|${redirect}|"></h2>
+<h2 th:text="|${countships}|"></h2>
+<pre>
+<h2 th:text="|${fieldFirst}|"></h2>
+</pre>
+<pre>
+<h2 th:text="|${YourField2}|"></h2>
+</pre>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!--<!DOCTYPE html>-->
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <title>Регистрация</title>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<div>-->
+<!--    <form:form method="POST" modelAttribute="userForm">-->
+<!--        <h2>Регистрация</h2>-->
+<!--        HWDWD-->
+<!--        <div>-->
+<!--            <form:input type="text" path="username" placeholder="Username"-->
+<!--                        autofocus="true"></form:input>-->
+<!--            <form:errors path="username"></form:errors>-->
+<!--                ${usernameError}-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <form:input type="password" path="password" placeholder="Password"></form:input>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--            <form:input type="password" path="passwordConfirm"-->
+<!--                        placeholder="Confirm your password"></form:input>-->
+<!--            <form:errors path="password"></form:errors>-->
+<!--                ${passwordError}-->
+<!--        </div>-->
+<!--        <button type="submit">Зарегистрироваться</button>-->
+<!--    </form:form>-->
+<!--    <a href="/">Главная</a>-->
+<!--</div>-->
+<!--</body>-->
+<!--</html>-->
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handing Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h2>Регистрация</h2>
+
+<form action="#" th:action="@{/registration}" th:object="${userForm}" method="post">
+    <p>username: <input type="text" placeholder="Username" th:field="*{username}"/></p>
+    <p>password: <input type="text" placeholder="password" th:field="*{password}"/></p>
+    <p>Confirm your password": <input type="text" placeholder="Confirm your password" th:field="*{passwordConfirm}"/></p>
+
+    <p><input type="submit" value="Submit"/> <input type="reset" value="Reset"/></p>
+</form>
+</body>
+</html>

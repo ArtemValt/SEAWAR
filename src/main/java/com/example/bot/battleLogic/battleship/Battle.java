@@ -1,8 +1,8 @@
 package com.example.bot.battleLogic.battleship;
 
 
-import com.example.bot.model.User;
 import com.example.bot.model.Ship;
+import com.example.bot.model.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,12 +24,14 @@ public class Battle {
         int deck = ship.getType();
         boolean loc = checkPos(ship, user);
         if (loc == true) {
-            if (user.getName().equals("1")) {
-                battlefield1 = makeTurn(deck, battlefield1, ship);
-                user.setBatllefield(battlefield1);
-            } else if (user.getName().equals("2")) {
-                battlefield2 = makeTurn(deck, battlefield2, ship);
-                user.setBatllefield(battlefield2);
+            if (user.countShips != 0) {
+                if (user.getName().equals("1")) {
+                    battlefield1 = makeTurn(deck, battlefield1, ship);
+                    user.setBatllefield(battlefield1);
+                } else if (user.getName().equals("2")) {
+                    battlefield2 = makeTurn(deck, battlefield2, ship);
+                    user.setBatllefield(battlefield2);
+                }
             }
             user.countShips--;
         }
