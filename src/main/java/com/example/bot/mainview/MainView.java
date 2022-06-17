@@ -18,7 +18,7 @@ import java.util.Date;
 
 @Route("/seaGame")
 public class MainView extends VerticalLayout {
-    int ready = ;
+    int ready = 0;
     int countPlay = 0;
     Battle battle = new Battle();
     private final Storage storage;
