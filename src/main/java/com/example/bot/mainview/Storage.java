@@ -44,8 +44,7 @@ public class Storage {
 
     public void addRecordJoined(String user) {
         count++;
-        userStorage.put(count, new BattleUser(String.valueOf(count), user));
-        messages.add(new ChatMan("", user));
+        messages.add(new ChatMan("", getUserStorage().get(count).getName()));
         eventBus.fireEvent(new ChatEvent());
     }
 

@@ -17,25 +17,24 @@ public class BattleUser {
     @Getter
     @Setter
     private int[][] batllefield = new int[10][10];
-    //3 для тестов , потом поставить 9
     @Getter
     @Setter
-    public int countShips = 9;
+    public int countShips = 10;
     @Getter
     @Setter
-    int countFourShip = 1;
+    int countFourShip = 0;
     @Getter
     @Setter
-    int countFreeShip = 2;
+    int countFreeShip = 0;
     @Getter
     @Setter
-    int countDobleShip = 3;
+    int countDobleShip = 0;
     @Getter
     @Setter
-    int countOneShip = 4;
+    int countOneShip = 0;
     @Getter
     @Setter
-    int countTrueShots = 1;
+    int countTrueShots = 3;
 
 
     public BattleUser(String type, String name) {

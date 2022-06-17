@@ -10,11 +10,11 @@ public class Utils {
                 if (field[j][i] == 0) {
                     matrix.append("| - ");
                 } else if (field[j][i] == 1) {
-                    matrix.append("| ⛴ ");
+                    matrix.append("| ⛴");
                 } else if (field[j][i] == 6) {
-                    matrix.append("| ⚐ ");
-                } else if (field[j][i] == 3) {
                     matrix.append("| ⚑ ");
+                } else if (field[j][i] == 3) {
+                    matrix.append("| ⚐ ");
                 }
             }
             matrix.append("\n");
@@ -33,9 +33,9 @@ public class Utils {
                 } else if (field[j][i] == 1) {
                     matrix.append("| ? ");
                 } else if (field[j][i] == 6) {
-                    matrix.append("| ⚐ ");
-                } else if (field[j][i] == 3) {
                     matrix.append("| ⚑ ");
+                } else if (field[j][i] == 3) {
+                    matrix.append("| ⚐ ");
                 }
             }
             matrix.append("\n");

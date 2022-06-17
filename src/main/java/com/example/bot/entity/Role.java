@@ -1,16 +1,27 @@
 package com.example.bot.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
 @Table(name = "t_role")
-public class Role  {
+public class Role {
     @Id
+    @Getter
+    @Setter
     private Long id;
+    @Getter
+    @Setter
     private String name;
     @Transient
     @ManyToMany(mappedBy = "roles")
+    @Getter
+    @Setter
     private Set<User> users;
+
     public Role() {
     }
 
@@ -23,28 +34,5 @@ public class Role  {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 
 }

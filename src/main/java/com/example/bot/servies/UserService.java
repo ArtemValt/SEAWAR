@@ -5,7 +5,6 @@ import com.example.bot.entity.User;
 import com.example.bot.repos.RoleRep;
 import com.example.bot.repos.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -16,14 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService  {
+public class UserService {
     @PersistenceContext
     private EntityManager em;
     @Autowired
     UserRep userRepository;
     @Autowired
     RoleRep roleRepository;
-
 
 
     public User findUserById(Long userId) {
@@ -36,11 +34,11 @@ public class UserService  {
     }
 
     public boolean saveUser(@Valid User user) {
-        User userFromDB = userRepository.findByUsername(user.getUsername());
+//        User userFromDB = userRepository.findByUsername(user.getUsername());
 
-        if (userFromDB != null) {
-            return false;
-        }
+//        if (userFromDB != null) {
+//            return false;
+//        }
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(user.getPassword());
         userRepository.save(user);

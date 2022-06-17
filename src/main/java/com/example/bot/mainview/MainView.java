@@ -16,7 +16,7 @@ import com.vaadin.flow.shared.Registration;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@Route("")
+@Route("/seaGame")
 public class MainView extends VerticalLayout {
     int ready = 0;
     int countPlay = 0;
@@ -106,7 +106,7 @@ public class MainView extends VerticalLayout {
         if (message.getName().isEmpty())
             return Processor.process(String.format("_User **%s** подключился к просмотру игры_", message.getMessage()));
         else
-            return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
+            return Processor.process(String.format(message.getMessage(), ""));
     }
 
     private String botSay(Storage.ChatMan message) {

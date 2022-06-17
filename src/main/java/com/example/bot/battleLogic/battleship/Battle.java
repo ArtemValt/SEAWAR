@@ -10,7 +10,7 @@ public class Battle {
     private static int deck = 4;
     @Getter
     @Setter
-    private int countTrueShots = 1;
+    private int countTrueShots = 3;
 
     private int i1 = 0;
     private int i2 = 0;
@@ -34,10 +34,7 @@ public class Battle {
         }
         int shipType = ship.getType();
         boolean loc;
-        if (battleUser.getType().equals(1))
-            loc = isAvailable(ship.getLocaX(), ship.getLocaY(), shipType, ship.getLocation(), battlefield1);
-        else
-            loc = isAvailable(ship.getLocaX(), ship.getLocaY(), shipType, ship.getLocation(), battlefield2);
+        loc = isAvailable(ship.getLocaX(), ship.getLocaY(), shipType, ship.getLocation(), battleUser.getBatllefield());
 
         if (loc == true) {
             loc = chekCountShips(battleUser, ship);
@@ -60,30 +57,35 @@ public class Battle {
         switch (ship.getType()) {
             case 1 -> {
                 i1 = battleUser.getCountOneShip();
-                battleUser.setCountOneShip(i1--);
-                if (battleUser.getCountOneShip() == 0)
+                battleUser.setCountOneShip(++i1);
+                if (battleUser.getCountOneShip() <= 4) {
+                } else
                     return false;
 
             }
             case 2 -> {
                 i2 = battleUser.getCountDobleShip();
-                battleUser.setCountDobleShip(i2--);
-                if (battleUser.getCountDobleShip() == 0)
+                battleUser.setCountDobleShip(++i2);
+                if (battleUser.getCountDobleShip() <= 3) {
+                } else
                     return false;
 
             }
             case 3 -> {
                 i3 = battleUser.getCountFreeShip();
-                battleUser.setCountFreeShip(i3--);
-                if (battleUser.getCountFreeShip() == 0)
+                battleUser.setCountFreeShip(++i3);
+                if (battleUser.getCountFreeShip() <= 2) {
+                } else
                     return false;
 
             }
             case 4 -> {
                 i4 = battleUser.getCountFourShip();
-                battleUser.setCountFourShip(i4--);
-                if (battleUser.getCountFourShip() == 0)
+                battleUser.setCountFourShip(++i4);
+                if (battleUser.getCountFourShip() <= 1) {
+                } else
                     return false;
+
             }
             default -> {
                 return false;
@@ -108,9 +110,10 @@ public class Battle {
             countTrueShots = 1;
             battleUser.whoWin++;
             battleUser.setCountTrueShots(countTrueShots);
-        } else if (field[x][y] == 6)
+        } else if (field[x][y] == 6) {
             field[x][y] = 6;
-        else {
+            countTrueShots = 0;
+        } else {
             field[x][y] = 3;
             countTrueShots = 0;
             battleUser.setCountTrueShots(countTrueShots);
@@ -129,7 +132,6 @@ public class Battle {
     }
 
     public static boolean isAvailable(int x, int y, int deck, String str, int[][] battlefield) {
-        // out of bound check
         if (str.equals("v")) {
             if (y + deck > battlefield.length) {
                 return false;
@@ -141,8 +143,6 @@ public class Battle {
             }
         }
 
-        //neighbours check without diagonals
-        //XXXX
         while (deck != 0) {
             for (int i = 0; i < deck; i++) {
                 int xi = 0;
@@ -152,7 +152,6 @@ public class Battle {
                 } else {
                     xi = i;
                 }
-//                battlefield[x ][y];
                 if (x + 1 + xi < battlefield.length && x + 1 + xi >= 0) {
                     if (battlefield[x + 1 + xi][y + yi] != 0) {
                         return false;

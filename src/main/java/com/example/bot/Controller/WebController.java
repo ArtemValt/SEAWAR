@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Arrays;
-
 @Controller
 public class WebController {
     private final Storage storage;
@@ -29,13 +27,12 @@ public class WebController {
     }
 
 
-    @RequestMapping("/ShowDetails")
+    @RequestMapping("/showdetails")
     public String showDeatils(
             Model model) {
-        model.addAttribute("fieldfirst", Arrays.deepToString(battle.getBattlefield1()));
-        model.addAttribute("fieldsecond", Arrays.deepToString(battle.getBattlefield2()));
-
-        return "ShowDetails";
+        model.addAttribute("fieldfirst", utils.arrayToStr(battleUser1.getBatllefield()).toString());
+        model.addAttribute("fieldsecond", utils.arrayToStr(battleUser2.getBatllefield()).toString());
+        return "showdetails";
     }
 
 
@@ -92,10 +89,17 @@ public class WebController {
         model.addAttribute("fieldFirst", FirstArrayIncognito);
         String matrix = utils.arrayToStr(battleUser1.getBatllefield()).toString();
         model.addAttribute("YourField2", matrix);
-        if (battleUser2.getCountTrueShots() == 0)
-            model.addAttribute("currentShoot", "Miss , change hod");
+        if (battleUser1.getCountTrueShots() == 0)
+            model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
+        else
+            model.addAttribute("currentShoot", "Поздравляю вы попали ");
+
+        if (battle.whoWin(battleUser1))
+            model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
+
         return "shoot1";
     }
+
 
     @RequestMapping(value = "/shoo1", method = RequestMethod.POST)
     public String shoo1Post(Model model, @RequestParam("OX") String x, @RequestParam("OY") String y) {
@@ -105,6 +109,14 @@ public class WebController {
         model.addAttribute("fieldFirst", FirstArrayIncognito);
         String matrix = utils.arrayToStr(battleUser1.getBatllefield()).toString();
         model.addAttribute("YourField2", matrix);
+        if (battleUser1.getCountTrueShots() != 0)
+            model.addAttribute("currentShoot", "Поздравляю вы попали ");
+        else
+            model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
+
+        if (battle.whoWin(battleUser1))
+            model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
+
         return "redirect:/shoo1";
     }
 
@@ -116,20 +128,28 @@ public class WebController {
         String matrix = utils.arrayToStr(battleUser2.getBatllefield()).toString();
         model.addAttribute("YourField2", matrix);
         if (battleUser2.getCountTrueShots() == 0)
-            model.addAttribute("currentShoot", "Miss , change hod");
-
+            model.addAttribute("currentShoot", "Промах,напишите в чат , что вы сделалил ход");
+        else
+            model.addAttribute("currentShoot", "Поздравляю вы попали ");
+        if (battle.whoWin(battleUser2) == true)
+            model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
         return "shoot2";
     }
 
     @RequestMapping(value = "/shoo2", method = RequestMethod.POST)
     public String shoo2Post(Model model, @RequestParam("OX") String x, @RequestParam("OY") String y) {
         battleUser2 = storage.getUserStorage().get(2);
-        battle.makeShoot(Integer.parseInt(x), Integer.parseInt(y), battle.getBattlefield1(), battleUser1);
+        battle.makeShoot(Integer.parseInt(x), Integer.parseInt(y), battle.getBattlefield1(), battleUser2);
         String FirstArrayIncognito = utils.incognitoArray(battle.getBattlefield1()).toString();
         model.addAttribute("fieldFirst", FirstArrayIncognito);
         String matrix = utils.arrayToStr(battleUser2.getBatllefield());
         model.addAttribute("YourField2", matrix);
-
+        if (battleUser2.getCountTrueShots() == 0)
+            model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
+        else
+            model.addAttribute("currentShoot", "Поздравляю вы попали ");
+        if (battle.whoWin(battleUser2) == true)
+            model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
 
         return "redirect:/shoo2";
     }
