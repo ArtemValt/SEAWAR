@@ -64,6 +64,9 @@
 <h1>Расстановите корабли </h1>
 <form action="#" th:action="@{/locOneField}" th:object="${ship}" method="post">
     <p>type: <input type="text" th:field="*{type}"/></p>
+    x=horizontally
+    <br>
+    v=vertically
     <p>location: <input type="text" th:field="*{location}"/></p>
     <p>locaX <input type="text" th:field="*{locaX}"/></p>
     <p>locaY: <input type="text" th:field="*{locaY}"/></p>

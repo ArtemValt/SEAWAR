@@ -17,10 +17,10 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private Long id;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter @Setter
     private String username;
-    @Size(min=2, message = "Не меньше 5 знаков")
+    @Size(min=2, message = "Не меньше 2 знаков")
     @Getter @Setter
     private String password;
     @Transient

@@ -91,7 +91,7 @@ public class WebController {
         model.addAttribute("YourField2", matrix);
         if (battleUser1.getCountTrueShots() == 0)
             model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
-        else
+        else if (battleUser1.getCountTrueShots() == 1)
             model.addAttribute("currentShoot", "Поздравляю вы попали ");
 
         if (battle.whoWin(battleUser1))
@@ -109,10 +109,10 @@ public class WebController {
         model.addAttribute("fieldFirst", FirstArrayIncognito);
         String matrix = utils.arrayToStr(battleUser1.getBatllefield()).toString();
         model.addAttribute("YourField2", matrix);
-        if (battleUser1.getCountTrueShots() != 0)
-            model.addAttribute("currentShoot", "Поздравляю вы попали ");
-        else
+        if (battleUser1.getCountTrueShots() == 0)
             model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
+        else if (battleUser1.getCountTrueShots() == 1)
+            model.addAttribute("currentShoot", "Поздравляю вы попали ");
 
         if (battle.whoWin(battleUser1))
             model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
@@ -128,9 +128,10 @@ public class WebController {
         String matrix = utils.arrayToStr(battleUser2.getBatllefield()).toString();
         model.addAttribute("YourField2", matrix);
         if (battleUser2.getCountTrueShots() == 0)
-            model.addAttribute("currentShoot", "Промах,напишите в чат , что вы сделалил ход");
-        else
+            model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
+        else if (battleUser2.getCountTrueShots() == 1)
             model.addAttribute("currentShoot", "Поздравляю вы попали ");
+
         if (battle.whoWin(battleUser2) == true)
             model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
         return "shoot2";
@@ -146,8 +147,9 @@ public class WebController {
         model.addAttribute("YourField2", matrix);
         if (battleUser2.getCountTrueShots() == 0)
             model.addAttribute("currentShoot", "Промах,напиите в чат , что вы сделалил ход");
-        else
+        else if (battleUser2.getCountTrueShots() == 1)
             model.addAttribute("currentShoot", "Поздравляю вы попали ");
+
         if (battle.whoWin(battleUser2) == true)
             model.addAttribute("whoWin", "Поздравляю вы победили , чтобы узнать результаты напишите <Результаты> ");
 
