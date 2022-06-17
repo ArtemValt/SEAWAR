@@ -1,5 +1,6 @@
 package com.example.bot.mainview;
 
+import com.example.bot.battleLogic.battleship.Battle;
 import com.github.rjeschke.txtmark.Processor;
 import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
@@ -12,9 +13,14 @@ import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.shared.Registration;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Route("")
 public class MainView extends VerticalLayout {
     int ready = 0;
+    int countPlay = 0;
+    Battle battle = new Battle();
     private final Storage storage;
     private Registration registration;
 
@@ -29,11 +35,13 @@ public class MainView extends VerticalLayout {
         buildChat();
     }
 
+
     private void buildLogin() {
         login = new VerticalLayout() {{
             TextField field = new TextField();
             field.setPlaceholder("Please, introduce yourself");
             add(
+                    new H3("Rules"),
                     field,
                     new Button("Login") {{
                         addClickListener(click -> {
@@ -60,10 +68,13 @@ public class MainView extends VerticalLayout {
 
         grid.addColumn(new ComponentRenderer<>(message -> new Html(renderRow(message))))
                 .setAutoWidth(true);
+        grid.addColumn(new ComponentRenderer<>(message -> new Html(botSay(message))))
+                .setAutoWidth(true);
 
         TextField field = new TextField();
 
         chat.add(
+
                 new H3("Vaadin chat"),
                 grid,
                 new HorizontalLayout() {{
@@ -92,24 +103,35 @@ public class MainView extends VerticalLayout {
     }
 
     private String renderRow(Storage.ChatMan message) {
-        if (message.getName().isEmpty()) {
-            if (storage.count == 1)
-                return Processor.process(String.format("_Ссылка для первого игрока **%s** !_", "http://localhost:8080/locOneField"));
-            else if (storage.count == 2)
-                return Processor.process(String.format("_Ссылка для второго игрока **%s** !_", "http://localhost:8080/locSecField"));
+        if (message.getName().isEmpty())
             return Processor.process(String.format("_User **%s** подключился к просмотру игры_", message.getMessage()));
-        } else if (message.getMessage().equals("готово")) {
-            ready++;
-            if (ready == 2)
-                return Processor.process(String.format("_Ссылка для первого и второго игрока **%s** !_ \n", "http://localhost:8080/shoo1 \n http://localhost:8080/shoo2"));
-            return Processor.process(String.format("Bot say : оджидание второго игрока ", "оджидание второго игрока"));
-        } else
+        else
             return Processor.process(String.format("**%s**: %s", message.getName(), message.getMessage()));
     }
 
     private String botSay(Storage.ChatMan message) {
-        int a = 0;
-        return "";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String date = simpleDateFormat.format(new Date());
+        try {
+            if (message.getName().isEmpty()) {
+                countPlay++;
+                if (countPlay == 1)
+                    return Processor.process(String.format("_Oжидание второго игрока !_", ""));
+                else if (countPlay == 2)
+                    return Processor.process(String.format("_Ссылка для первого и  второго игрока **%s** !_",
+                            "http://localhost:8080/locOneField \n " +
+                                    "http://localhost:8080/locSecField"));
+            } else if (message.getMessage().equals("готово")) {
+                ready++;
+                if (ready == 2)
+                    return Processor.process(String.format("_Ссылка для первого и второго игрока **%s** !_ \n", "http://localhost:8080/shoo1 \n http://localhost:8080/shoo2"));
+                return Processor.process(String.format("Bot say : оджидание второго игрока ", date));
+            } else if (battle.whoWin(storage.getUserStorage().get(1)) || battle.whoWin(storage.getUserStorage().get(2)))
+                return Processor.process(String.format(" _У нас есть победитель !_ ", "_Ссылка на просмотре рещультатов_"));
+            return Processor.process(String.format(date, " "));
+        } catch (NullPointerException e) {
+            return Processor.process(String.format(date, " "));
+        }
     }
 
 

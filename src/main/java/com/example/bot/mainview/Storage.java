@@ -1,6 +1,6 @@
 package com.example.bot.mainview;
 
-import com.example.bot.model.User;
+import com.example.bot.model.BattleUser;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventBus;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -21,7 +21,7 @@ public class Storage {
     private Queue<ChatMan> messages = new ConcurrentLinkedQueue<>();
     private ComponentEventBus eventBus = new ComponentEventBus(new Div());
     @Getter
-    private HashMap<Integer, User> userStorage = new HashMap<>();
+    private HashMap<Integer, BattleUser> userStorage = new HashMap<>();
 
     @Getter
     @AllArgsConstructor
@@ -44,7 +44,7 @@ public class Storage {
 
     public void addRecordJoined(String user) {
         count++;
-        userStorage.put(count, new User(user, ""));
+        userStorage.put(count, new BattleUser(String.valueOf(count), user));
         messages.add(new ChatMan("", user));
         eventBus.fireEvent(new ChatEvent());
     }

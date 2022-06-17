@@ -41,7 +41,6 @@ public class UserService  {
         if (userFromDB != null) {
             return false;
         }
-
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
         user.setPassword(user.getPassword());
         userRepository.save(user);

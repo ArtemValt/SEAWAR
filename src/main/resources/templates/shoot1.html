@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<h1>Совершите ваш ход   </h1>
+<h1>Совершите ваш ход </h1>
 <form action="/shoo1" method="post">
     <label for="OY">OY</label>
     <input type="text" id="OY" name="OY"><br><br>
@@ -16,10 +16,11 @@
 </form>
 <h2 th:text="|${redirect}|"></h2>
 <h2 th:text="|${countships}|"></h2>
+<h2 th:text="|${currentShoot}|">
 <pre>
 <h2 th:text="|${fieldFirst}|"></h2>
 </pre>
-<pre>
+    <pre>
 <h2 th:text="|${YourField2}|"></h2>
 </pre>
 </body>
